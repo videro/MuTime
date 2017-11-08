@@ -13,10 +13,10 @@ import android.util.Log;
  * to allow MuTime to correct its offsets against these events.
  */
 public final class TimeDataPreserver extends BroadcastReceiver {
-    private MUPersistence persistence;
+    private Persistence persistence;
     private static final String TAG = BroadcastReceiver.class.getSimpleName();
 
-    public TimeDataPreserver(MUPersistence p) {
+    public TimeDataPreserver(Persistence p) {
         this.persistence = p;
     }
 

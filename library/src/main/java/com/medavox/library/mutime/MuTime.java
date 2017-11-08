@@ -24,7 +24,7 @@ import java.io.IOException;
  * }
  * }</pre>*/
 public class MuTime {
-    static final MUPersistence persistence = new MUPersistence();
+    static final Persistence persistence = new Persistence();
 
     private static TimeDataPreserver preserver = null;
     private static final String TAG = MuTime.class.getSimpleName();
