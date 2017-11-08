@@ -11,24 +11,24 @@ import android.util.Log;
  * arbitrates access to the SharedPrefs copy, all under one API.
  * all the API user has to do is call {@link #getTimeData()}.
  * */
-public class Persistence implements SntpClient.SntpResponseListener {
+public class MUPersistence implements SntpClient.SntpResponseListener {
     private static final String SHARED_PREFS_KEY = "com.medavox.library.mutime.shared_preferences";
     private static final String KEY_SYSTEM_CLOCK_OFFSET = "system clock offset";
     private static final String KEY_UPTIME_OFFSET = "uptime offset";
     private static final String KEY_ROUND_TRIP_DELAY = "round trip delay";
 
-    private static final String TAG = Persistence.class.getSimpleName();
+    private static final String TAG = MUPersistence.class.getSimpleName();
 
     private static SharedPreferences sharedPrefs = null;
 
     private static TimeData timeData = null;
 
-    public Persistence(Context context) {
+    public MUPersistence(Context context) {
         sharedPrefs = context.getSharedPreferences(SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         Log.i(TAG, "instance:"+this);
     }
 
-    public Persistence() {
+    public MUPersistence() {
         Log.w(TAG, "not providing a Context to access SharedPreferences disables most of Persistence's features!");
         Log.i(TAG, "instance:"+this);
     }
