@@ -11,7 +11,7 @@ import android.util.Log;
  * arbitrates access to the SharedPrefs copy, all under one API.
  * all the API user has to do is call {@link #getTimeData()}.
  * */
-final class Persistence implements SntpClient.SntpResponseListener {
+public class Persistence implements SntpClient.SntpResponseListener {
     private static final String SHARED_PREFS_KEY = "com.medavox.library.mutime.shared_preferences";
     private static final String KEY_SYSTEM_CLOCK_OFFSET = "system clock offset";
     private static final String KEY_UPTIME_OFFSET = "uptime offset";
