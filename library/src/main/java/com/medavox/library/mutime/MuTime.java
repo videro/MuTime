@@ -48,6 +48,40 @@ public class MuTime {
     public static boolean hasTheTime() {
         return persistence.hasTimeData();
     }
+	
+	/** get details from timeData: clock offset
+	*/
+	public static long getClockOffset() throws MissingTimeDataException{
+		if(!persistence.hasTimeData()){
+            throw new MissingTimeDataException("time data is missing or invalid. " +
+                    "Please make an NTP network request by calling " +
+                    "MuTime.requestTimeFromServer(String) to refresh the true time");
+		}
+		return persistence.getTimeData().getClockOffset();
+	}
+
+	/** get details from timeData: uptime offset
+	*/
+	public static long getUptimeOffset() throws MissingTimeDataException{
+		if(!persistence.hasTimeData()){
+            throw new MissingTimeDataException("time data is missing or invalid. " +
+                    "Please make an NTP network request by calling " +
+                    "MuTime.requestTimeFromServer(String) to refresh the true time");
+		}
+		return persistence.getTimeData().getUptimeOffset();
+	}
+
+	/** get details from timeData: round trip delay
+	*/
+	public static long getRoundTripDelay() throws MissingTimeDataException{
+		if(!persistence.hasTimeData()){
+            throw new MissingTimeDataException("time data is missing or invalid. " +
+                    "Please make an NTP network request by calling " +
+                    "MuTime.requestTimeFromServer(String) to refresh the true time");
+		}
+		return persistence.getTimeData().getRoundTripDelay();
+	}
+
 
     /**Get the True Time in Unix Epoch format: milliseconds since midnight on 1 January, 1970.
      * The current time in the default Timezone.
