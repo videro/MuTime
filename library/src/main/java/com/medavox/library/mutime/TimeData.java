@@ -77,7 +77,7 @@ class TimeData {
         }
 
         public TimeData build() {
-            if(roundTripDelay != 0 && uptimeOffset != 0 && systemClockOffset != 0) {
+            if(roundTripDelay != 0 && uptimeOffset != 0) {
                 return new TimeData(roundTripDelay, uptimeOffset, systemClockOffset);
             }
             else {
