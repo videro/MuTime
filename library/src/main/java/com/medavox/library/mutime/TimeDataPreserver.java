@@ -31,6 +31,9 @@ public final class TimeDataPreserver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         TimeData old = persistence.getTimeData();
+        if(old == null){
+            return;
+        }
         Log.i(TAG, "action \""+intent.getAction()+"\" detected. Repairing TimeData...");
         long clockNow = System.currentTimeMillis();
         long uptimeNow = SystemClock.elapsedRealtime();
