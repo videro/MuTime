@@ -28,10 +28,10 @@ public class Persistence implements SntpClient.SntpResponseListener {
         Log.i(TAG, "instance:"+this);
     }
 
-    public Persistence() {
+    /*public Persistence() {
         Log.w(TAG, "not providing a Context to access SharedPreferences disables most of Persistence's features!");
         Log.i(TAG, "instance:"+this);
-    }
+    }*/
 
 
     void enabledDiskCache(Context c) {
@@ -136,5 +136,11 @@ public class Persistence implements SntpClient.SntpResponseListener {
             return false;
         }
         return true;
+    }
+
+    static void throwIfNotInitialized(Persistence persistence) throws NotInitializedException{
+        if(persistence == null){
+            throw new NotInitializedException("Persistence not initialized, Please call MuTime.init(Context);");
+        }
     }
 }
