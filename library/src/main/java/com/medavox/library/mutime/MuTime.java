@@ -24,7 +24,7 @@ import java.io.IOException;
  * }
  * }</pre>*/
 public class MuTime {
-    static final Persistence persistence = new Persistence();
+    static Persistence persistence = null;
 
     private static TimeDataPreserver preserver = null;
     private static final String TAG = MuTime.class.getSimpleName();
@@ -34,12 +34,16 @@ public class MuTime {
     }
 
     /**Call this at least once to get reliable time from an NTP server.*/
-    public static void requestTimeFromServer(String ntpHost) throws IOException {
+    public static void requestTimeFromServer(String ntpHost) throws IOException, NotInitializedException {
         new SntpRequest(ntpHost, persistence).send();
     }
 
     public static SntpRequest buildCustomSntpRequest(String ntpHost) {
         return new SntpRequest(ntpHost, persistence);
+    }
+
+    public static void init(Context context){
+        MuTime.persistence = new Persistence(context);
     }
 
     /**Whether or not MuTime knows the actual time.
@@ -121,7 +125,10 @@ public class MuTime {
 
      * }</pre>
      * @return a Unix Epoch-format timestamp of the actual current time, in the default timezone.*/
-    public static long now() throws MissingTimeDataException {
+    public static long now() throws MissingTimeDataException, NotInitializedException {
+
+        Persistence.throwIfNotInitialized(persistence);
+
         /*3 possible states:
             1. We have fresh SNTP data from a recently-made request, store (atm) in SntpClient
             2. We have cached SNTP data from SharedPreferences
@@ -153,19 +160,22 @@ public class MuTime {
     /**Enable the use of {@link android.content.SharedPreferences}
      * to store time data across app closes, system reboots and system clock meddling.
      * @param c a Context object which is needed for accessing SharedPreferences*/
-    public static void enableDiskCaching(Context c) {
+    public static void enableDiskCaching(Context c) throws NotInitializedException {
+        Persistence.throwIfNotInitialized(persistence);
         persistence.enabledDiskCache(c);
     }
 
     /**Disable storing of Time Data on-disk.
      * This method is provided for the sake of API completeness; why would you actually want to???*/
-    public static void disableDiskCaching() {
+    public static void disableDiskCaching() throws NotInitializedException {
+        Persistence.throwIfNotInitialized(persistence);
         persistence.disableDiskCache();
     }
 
     /**Check whether disk caching has been enabled.
      * @return whether disk caching has been enabled*/
-    public static boolean diskCacheEnabled() {
+    public static boolean diskCacheEnabled() throws NotInitializedException {
+        Persistence.throwIfNotInitialized(persistence);
         return persistence.diskCacheEnabled();
     }
 
