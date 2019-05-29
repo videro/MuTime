@@ -182,7 +182,11 @@ public class Ntp {
                 bestIndex = i;
             }
         }
-        return responseTimeList[bestIndex];
+        if(bestIndex != -1 && bestIndex < responseTimeList.length) {
+            return responseTimeList[bestIndex];
+        } else {
+            return null;
+        }
     }
 
     private static boolean isReachable(InetAddress addr) {
