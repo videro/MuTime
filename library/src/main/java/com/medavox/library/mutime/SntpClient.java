@@ -138,6 +138,11 @@ class SntpClient {
                 throw new InvalidNtpResponseException("unsynchronized server responded for MuTime");
             }
 
+            Log.wtf("SNTP","CLOCK AT RESPONSE : " + clockAtResponse);
+            Log.wtf("SNTP","CLOCK AT REQUEST : " + clockAtRequest);
+            Log.wtf("SNTP", "TRANSMIT TIME : " + transmitTime);
+            Log.wtf("SNTP", "RECEIVE TIME : " + receiveTime);
+
             long roundTripDelay = (clockAtResponse - clockAtRequest) - (transmitTime - receiveTime);
             long delay = Math.abs(roundTripDelay);
             if (delay >= serverResponseDelayMax) {
